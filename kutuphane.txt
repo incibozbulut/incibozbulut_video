@@ -1,0 +1,451 @@
+
+use kutuphane;
+go
+DROP TABLE IF EXISTS odunc;
+DROP TABLE IF EXISTS kitap_yazar;
+DROP TABLE IF EXISTS kitap;
+DROP TABLE IF EXISTS yazar;
+DROP TABLE IF EXISTS kategori;
+DROP TABLE IF EXISTS uye;
+GO
+
+
+create table uye(
+uye_id int primary key,
+ad varchar(20),
+soyad varchar(20),
+telefon varchar(20),
+mail varchar(30),
+kayit_tarihi date);
+
+create table kategori(
+kategori_id int primary key,
+kategori_adi varchar(30));
+
+
+
+
+create table yazar(
+yazar_id int primary key,
+yazar_ad varchar(20),
+yazar_soyad varchar(20));
+
+
+create table kitap(
+kitap_id int primary key,
+kategori_id int,
+kitap_adi varchar(30),
+ısbn varchar(20),
+yayin_yili int,
+kitap_fiyat varchar(30),
+durum varchar(30));
+
+
+create table kitap_yazar(
+kitap_id int NOT NULL,
+yazar_id int NOT NULL,
+ primary key (kitap_id, yazar_id),
+ foreign key(kitap_id) references kitap(kitap_id),
+ foreign key (yazar_id) references yazar(yazar_id));
+
+
+
+
+
+
+create table odunc(
+odunc_id int primary key,
+uye_id int,
+kitap_id int,
+odunc_tarihi date,
+iade_tarihi date,
+durum varchar(20));
+alter table odunc
+add foreign key (uye_id) references uye(uye_id);
+alter table odunc
+add foreign key (kitap_id) references kitap(kitap_id);
+
+
+
+
+INSERT INTO kategori(kategori_id,kategori_adi)
+VALUES (1,'Roman');
+INSERT INTO kategori(kategori_id,kategori_adi)
+VALUES(2,'Bilim');
+INSERT INTO kategori(kategori_id,kategori_adi)
+VALUES(3,'Tarih');
+INSERT INTO kategori(kategori_id,kategori_adi)
+VALUES(4,'Edebiyat');
+INSERT INTO kategori(kategori_id,kategori_adi)
+VALUES (5,'Psikoloji');
+INSERT INTO kategori(kategori_id,kategori_adi)
+VALUES (6,'Felsefe');
+INSERT INTO kategori(kategori_id,kategori_adi)
+VALUES (7,'Bilgisayar');
+INSERT INTO kategori(kategori_id,kategori_adi)
+VALUES(8,'Sanat');
+INSERT INTO kategori(kategori_id,kategori_adi)
+VALUES(9,'Cocuk');
+INSERT INTO kategori(kategori_id,kategori_adi)
+VALUES(10,'Eğitim');
+INSERT INTO yazar(yazar_id,yazar_ad,yazar_soyad)
+VALUES(1,'Sabahattin','Ali');
+INSERT INTO yazar(yazar_id,yazar_ad,yazar_soyad)
+VALUES(2,'Orhan','Pamuk');
+INSERT INTO yazar(yazar_id,yazar_ad,yazar_soyad)
+VALUES(3,'George','Orwell');
+INSERT INTO yazar(yazar_id,yazar_ad,yazar_soyad)
+VALUES(4,'Fyodor','Dostoyevski');
+INSERT INTO yazar(yazar_id,yazar_ad,yazar_soyad)
+VALUES(5,'Ahmet','Ümit');
+INSERT INTO yazar(yazar_id,yazar_ad,yazar_soyad)
+VALUES(6,'Paulo','Coelho');
+INSERT INTO yazar(yazar_id,yazar_ad,yazar_soyad)
+VALUES(7,'Albert','Camus');
+INSERT INTO yazar(yazar_id,yazar_ad,yazar_soyad)
+VALUES(8,'Elif','Şafak');
+INSERT INTO yazar(yazar_id,yazar_ad,yazar_soyad)
+VALUES(9,'Zülfü','Livaneli');
+INSERT INTO yazar(yazar_id,yazar_ad,yazar_soyad)
+VALUES(10,'Victor','Hugo');
+INSERT INTO uye(uye_id,ad,soyad,telefon,mail,kayit_tarihi)
+VALUES(1,'Ali','Tekin','05678108976','alitekin@gmail.com','2011-11-07');
+INSERT INTO uye(uye_id,ad,soyad,telefon,mail,kayit_tarihi)
+VALUES(2,'Ayşe','Yılmaz','05431233322','ayseyılmaz@gmail.com','2015-04-12');
+INSERT INTO uye(uye_id,ad,soyad,telefon,mail,kayit_tarihi)
+VALUES(3,'Emir','Kaya','05687878899','emirkaya@hotmail.com','2009-03-29');
+INSERT INTO uye(uye_id,ad,soyad,telefon,mail,kayit_tarihi)
+VALUES(4,'Bora','Özkaya','05877773144','boraozkaya@hotmail.com','2007-10-10');
+INSERT INTO uye(uye_id,ad,soyad,telefon,mail,kayit_tarihi)
+VALUES(5,'Ceylin','Kurt','05678900808','ceylinkurt@gmail.com','2015-09-05');
+INSERT INTO uye(uye_id,ad,soyad,telefon,mail,kayit_tarihi)
+VALUES(6,'Ömür','Seçkin','05555676644','omurseckin@hotmail.com','2011-11-26');
+INSERT INTO uye(uye_id,ad,soyad,telefon,mail,kayit_tarihi)
+VALUES(7,'Berk','Apak','05456067888','berkapak@gmail.com','2007-11-22');
+INSERT INTO uye(uye_id,ad,soyad,telefon,mail,kayit_tarihi)
+VALUES(8,'Sare','Taşkın','05784442211','saretaskin@hotmail.com','2020-02-20');
+INSERT INTO uye(uye_id,ad,soyad,telefon,mail,kayit_tarihi)
+VALUES(9,'Melis','Öz','05557776123','melisoz@gmail.com','2011-11-07');
+INSERT INTO uye(uye_id,ad,soyad,telefon,mail,kayit_tarihi)
+VALUES(10,'Deren','Boz','05321220211','derenboz@hotmail.com','2008-01-19');
+INSERT INTO kitap(kitap_id,kategori_id,kitap_adi,ısbn,yayin_yili,kitap_fiyat,durum)
+VALUES(1,1,'Kürk mantolu madonna','9789753638029',1943,400,'RAFTA');
+INSERT INTO kitap(kitap_id,kategori_id,kitap_adi,ısbn,yayin_yili,kitap_fiyat,durum)
+VALUES(2,1, '1984','9780451524935',1949,158,'RAFTA');
+INSERT INTO kitap(kitap_id,kategori_id,kitap_adi,ısbn,yayin_yili,kitap_fiyat,durum)
+VALUES(3,4,'Benim Adım Kırmızı','9789754700114',1998,350,'RAFTA');
+INSERT INTO kitap(kitap_id,kategori_id,kitap_adi,ısbn,yayin_yili,kitap_fiyat,durum)
+VALUES(4,1, 'Suç ve Ceza','9789750819387',1866,500,'RAFTA');
+INSERT INTO kitap(kitap_id,kategori_id,kitap_adi,ısbn,yayin_yili,kitap_fiyat,durum)
+VALUES(5,1, 'Beyoğlu Rapsodisi','9789753632564',2003,320,'RAFTA');
+INSERT INTO kitap(kitap_id,kategori_id,kitap_adi,ısbn,yayin_yili,kitap_fiyat,durum)
+VALUES(6,5, 'Simyacı','9780061122415',1988,180,'RAFTA');
+INSERT INTO kitap(kitap_id,kategori_id,kitap_adi,ısbn,yayin_yili,kitap_fiyat,durum)
+VALUES(7,6,'Yabancı','9780679720201',1942,280,'RAFTA');
+INSERT INTO kitap(kitap_id,kategori_id,kitap_adi,ısbn,yayin_yili,kitap_fiyat,durum)
+VALUES(8,4, 'Aşk','9789572899643',2009,430,'RAFTA');
+INSERT INTO kitap(kitap_id,kategori_id,kitap_adi,ısbn,yayin_yili,kitap_fiyat,durum)
+VALUES(9,4,'Serenad','9789750816895',2011,380,'RAFTA');
+INSERT INTO kitap(kitap_id,kategori_id,kitap_adi,ısbn,yayin_yili,kitap_fiyat,durum)
+VALUES(10,9,'Sefiller','9789752632348',1862,400,'RAFTA');
+INSERT INTO kitap_yazar(kitap_id,yazar_id)
+VALUES(1,1);
+INSERT INTO kitap_yazar(kitap_id,yazar_id)
+VALUES(2,3);
+INSERT INTO kitap_yazar(kitap_id,yazar_id)
+VALUES(3,2);
+INSERT INTO kitap_yazar(kitap_id,yazar_id)
+VALUES(4,4);
+INSERT INTO kitap_yazar(kitap_id,yazar_id)
+VALUES(5,5);
+INSERT INTO kitap_yazar(kitap_id,yazar_id)
+VALUES(6,6);
+INSERT INTO kitap_yazar(kitap_id,yazar_id)
+VALUES(7,7);
+INSERT INTO kitap_yazar(kitap_id,yazar_id)
+VALUES(8,8);
+INSERT INTO kitap_yazar(kitap_id,yazar_id)
+VALUES(9,9);
+INSERT INTO kitap_yazar(kitap_id,yazar_id)
+VALUES(10,10);
+INSERT INTO odunc(odunc_id,uye_id,kitap_id,odunc_tarihi,iade_tarihi,durum)
+VALUES(1,1,1,'2024-01-01',NULL,'odunc');
+INSERT INTO odunc(odunc_id,uye_id,kitap_id,odunc_tarihi,iade_tarihi,durum)
+VALUES(2,2,2,'2024-01-02','2024-01-10','ıade');
+INSERT INTO odunc(odunc_id,uye_id,kitap_id,odunc_tarihi,iade_tarihi,durum)
+VALUES(3,3,3,'2024-01-05',NULL,	'odunc');
+INSERT INTO odunc(odunc_id,uye_id,kitap_id,odunc_tarihi,iade_tarihi,durum)
+VALUES(4,4,4,'2024-01-03','2024-01-15','ıade');
+INSERT INTO odunc(odunc_id,uye_id,kitap_id,odunc_tarihi,iade_tarihi,durum)
+VALUES(5,5,5,'2024-01-07',NULL,'odunc');
+INSERT INTO odunc(odunc_id,uye_id,kitap_id,odunc_tarihi,iade_tarihi,durum)
+VALUES(6,6,6, '2024-01-08','2024-01-20','ıade');
+INSERT INTO odunc(odunc_id,uye_id,kitap_id,odunc_tarihi,iade_tarihi,durum)
+VALUES(7,7,7, '2024-01-10',NULL,'odunc');
+INSERT INTO odunc(odunc_id,uye_id,kitap_id,odunc_tarihi,iade_tarihi,durum)
+VALUES(8,8,8, '2024-01-11','2024-01-25','ıade');
+INSERT INTO odunc(odunc_id,uye_id,kitap_id,odunc_tarihi,iade_tarihi,durum)
+VALUES(9,9,9, '2024-01-12',NULL,'odunc');
+INSERT INTO odunc(odunc_id,uye_id,kitap_id,odunc_tarihi,iade_tarihi,durum)
+VALUES(10,10,10, '2024-01-13','2024-01-30','ıade');
+
+
+
+
+
+PROCEDURE ÖRNEKLERİM
+
+/*CREATE PROCEDURE sp_UyeEkle
+@uye_id INT, @ad VARCHAR(20), @soyad VARCHAR(20),
+@telefon VARCHAR(20), @mail VARCHAR(30)
+AS
+INSERT INTO uye VALUES (@uye_id,@ad,@soyad,@telefon,@mail,GETDATE());
+
+
+
+
+CREATE PROCEDURE sp_KitapEkle
+@kitap_id INT, @kategori_id INT, @kitap_adi VARCHAR(30),
+@isbn VARCHAR(20), @yil INT, @fiyat VARCHAR(30)
+AS
+INSERT INTO kitap VALUES (@kitap_id,@kategori_id,@kitap_adi,@isbn,@yil,@fiyat,'RAFTA');
+
+
+
+
+
+CREATE PROCEDURE sp_YazarEkle
+@yazar_id INT, @ad VARCHAR(20), @soyad VARCHAR(20)
+AS
+INSERT INTO yazar VALUES (@yazar_id,@ad,@soyad);
+
+
+
+
+CREATE PROCEDURE sp_KitapYazarEkle
+@kitap_id INT, @yazar_id INT
+AS
+INSERT INTO kitap_yazar VALUES (@kitap_id,@yazar_id);
+
+
+
+
+CREATE PROCEDURE sp_KitapOduncVer
+@odunc_id INT, @uye_id INT, @kitap_id INT
+AS
+INSERT INTO odunc VALUES
+(@odunc_id,@uye_id,@kitap_id,GETDATE(),NULL,'odunc');
+
+
+
+
+
+CREATE PROCEDURE sp_KitapIade
+@odunc_id INT
+AS
+UPDATE odunc
+SET iade_tarihi = GETDATE(), durum='iade'
+WHERE odunc_id=@odunc_id;
+
+
+
+
+
+CREATE PROCEDURE sp_UyeOduncListe
+@uye_id INT
+AS
+SELECT * FROM odunc WHERE uye_id=@uye_id;
+
+
+
+
+CREATE PROCEDURE sp_RaftakiKitaplar
+AS
+SELECT * FROM kitap WHERE durum='RAFTA';
+
+
+
+
+
+CREATE PROCEDURE sp_OdunctekiKitaplar
+AS
+SELECT * FROM kitap WHERE durum='ODUNC';
+
+
+
+CREATE PROCEDURE sp_KategoriKitaplari
+@kategori_id INT
+AS
+SELECT * FROM kitap WHERE kategori_id=@kategori_id;
+
+
+
+
+TRIGGER ÖRNEKLERİM
+
+CREATE TRIGGER trg_OduncSonrasiKitapDurum
+ON odunc
+AFTER INSERT
+AS
+BEGIN
+    UPDATE kitap
+    SET durum = 'ODUNC'
+    WHERE kitap_id IN (SELECT kitap_id FROM inserted);
+END; 
+
+/*CREATE TRIGGER trg_IadeSonrasiKitapDurum
+ON odunc
+AFTER UPDATE
+AS
+BEGIN
+    IF UPDATE(durum)
+    BEGIN
+        UPDATE kitap
+        SET durum = 'RAFTA'
+        WHERE kitap_id IN (
+            SELECT kitap_id FROM inserted WHERE durum = 'iade'
+        );
+    END
+END;
+
+
+CREATE TRIGGER trg_AyniKitapOduncEngelle
+ON odunc
+INSTEAD OF INSERT
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM kitap k
+        JOIN inserted i ON k.kitap_id = i.kitap_id
+        WHERE k.durum = 'ODUNC'
+    )
+    BEGIN
+        RAISERROR('Bu kitap zaten ödünç verilmiş.',16,1);
+        RETURN;
+    END
+
+    INSERT INTO odunc
+    SELECT * FROM inserted;
+END; 
+
+CREATE TRIGGER trg_UyeMax3Kitap
+ON odunc
+AFTER INSERT
+AS
+BEGIN
+    IF EXISTS (
+        SELECT uye_id
+        FROM odunc
+        WHERE durum = 'odunc'
+        GROUP BY uye_id
+        HAVING COUNT(*) > 3
+    )
+    BEGIN
+        RAISERROR('Bir üye en fazla 3 kitap ödünç alabilir.',16,1);
+        ROLLBACK TRANSACTION;
+    END
+END; 
+
+cREATE TRIGGER trg_KitapSilininceOduncSil
+ON kitap
+AFTER DELETE
+AS
+BEGIN
+    DELETE FROM odunc
+    WHERE kitap_id IN (SELECT kitap_id FROM deleted);
+END; 
+
+CREATE TRIGGER trg_UyeSilininceOduncSil
+ON uye
+AFTER DELETE
+AS
+BEGIN
+    DELETE FROM odunc
+    WHERE uye_id IN (SELECT uye_id FROM deleted);
+END; 
+
+
+CREATE TRIGGER trg_GelecekTarihEngelle
+ON odunc
+AFTER INSERT
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM inserted
+        WHERE odunc_tarihi > CAST(GETDATE() AS DATE)
+    )
+    BEGIN
+        RAISERROR('Ödünç tarihi bugünden ileri olamaz.',16,1);
+        ROLLBACK TRANSACTION;
+    END
+END; 
+
+
+
+CREATE TRIGGER trg_ISBNTekrarEngelle
+ON kitap
+AFTER INSERT
+AS
+BEGIN
+    IF EXISTS (
+        SELECT ısbn
+        FROM kitap
+        GROUP BY ısbn
+        HAVING COUNT(*) > 1
+    )
+    BEGIN
+        RAISERROR('Aynı ISBN numarası tekrar edemez.',16,1);
+        ROLLBACK TRANSACTION;
+    END
+END; 
+
+
+CREATE TRIGGER trg_IadeTarihiKontrol
+ON odunc
+AFTER UPDATE
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM inserted
+        WHERE iade_tarihi IS NOT NULL
+        AND iade_tarihi < odunc_tarihi
+    )
+    BEGIN
+        RAISERROR('İade tarihi, ödünç tarihinden önce olamaz.',16,1);
+        ROLLBACK TRANSACTION;
+    END
+END; 
+
+
+
+
+CREATE TRIGGER trg_AyniUyeAyniKitap
+ON odunc
+AFTER INSERT
+AS
+BEGIN
+    IF EXISTS (
+        SELECT uye_id, kitap_id
+        FROM odunc
+        GROUP BY uye_id, kitap_id
+        HAVING COUNT(*) > 1
+    )
+    BEGIN
+        RAISERROR('Aynı üye aynı kitabı tekrar ödünç alamaz.',16,1);
+        ROLLBACK TRANSACTION;
+    END
+END; 
+
+
+
+
+
+
+
+
+
+
+
+
